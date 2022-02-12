@@ -41,9 +41,8 @@ const getJobDetails = async (uid: string) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {params} = context
-    if (!params?.uid) return
 
-    const jobData = await getJobDetails(params.uid as string)
+    const jobData = await getJobDetails(params?.uid as string)
     const userProfile = await getUserProfileDetails(jobData.createdBy)
     return {
         props: {
@@ -77,6 +76,7 @@ const JobPage: NextPage = ({jobData, userProfile}: InferGetServerSidePropsType<t
                     <Image
                         src={userProfile.baner}
                         layout={'fill'}
+                        alt={'image'}
                     />
                     <Avatar
                         size="xl"

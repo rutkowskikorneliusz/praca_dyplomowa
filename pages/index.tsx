@@ -72,7 +72,7 @@ const Home: NextPage = ({jobs}: InferGetServerSidePropsType<typeof getServerSide
                 experience: expierienceLevelFilter
             }
         })
-    }, [searchQuery, tagFilter, expierienceLevelFilter])
+    }, [searchQuery, tagFilter, expierienceLevelFilter, router])
     return (
         <Flex
             minH={'90vh'}

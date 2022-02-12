@@ -114,7 +114,7 @@ const ProfilePage: NextPage = ({jobs}: InferGetServerSidePropsType<typeof getSer
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {jobs.map(job => (
+                                {jobs.map((job: any) => (
                                     <Tr key={job.title}>
                                         <Td>{job.title}</Td>
                                         <Td>{job.salaryMin} - {job.salaryMax} PLN</Td>

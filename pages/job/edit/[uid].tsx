@@ -15,7 +15,7 @@ import React, {useEffect} from "react";
 import {jobCategories, technologies} from "../../../data/categories";
 import {experienceLevels} from "../../../data/experienceLevels";
 import RichTextEditor from "../../../components/RichTextEditor/RIchTextEditor";
-import {Select} from "chakra-react-select";
+import {MultiValue, Select} from "chakra-react-select";
 import {showToaster} from "../../../utils/toaster";
 import {doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../../firebase/clientApp";
@@ -58,14 +58,14 @@ const EditJob = ({jobData}: InferGetServerSidePropsType<typeof getServerSideProp
     const router = useRouter()
     const {register, handleSubmit, reset, setValue} = useForm<EditJobFormData>();
 
-    const handleTagsChange = data => {
+    const handleTagsChange = (data: MultiValue<{ label: string; value: string; }>) => {
         const tags = data.map(tag => {
             return tag.value
         })
         setValue("tags", tags)
     };
 
-    const handleContentChange = data => {
+    const handleContentChange = (data: string) => {
         setValue("content", data)
     }
 
@@ -152,7 +152,7 @@ const EditJob = ({jobData}: InferGetServerSidePropsType<typeof getServerSideProp
                                 <FormLabel>Kategoria</FormLabel>
                                 <ChakraSelect {...register('category')}>
                                     {jobCategories.map(item => (
-                                        <option value={item.value}>{item.value}</option>
+                                        <option key={item.value} value={item.value}>{item.value}</option>
                                     ))}
                                 </ChakraSelect>
                             </FormControl>
@@ -160,7 +160,7 @@ const EditJob = ({jobData}: InferGetServerSidePropsType<typeof getServerSideProp
                                 <FormLabel>Wymagane doświadczenie</FormLabel>
                                 <ChakraSelect {...register('experienceLevel')}>
                                     {experienceLevels.map(item => (
-                                        <option value={item.value}>{item.label}</option>
+                                        <option key={item.value} value={item.value}>{item.label}</option>
                                     ))}
                                 </ChakraSelect>
                             </FormControl>
@@ -197,6 +197,7 @@ const EditJob = ({jobData}: InferGetServerSidePropsType<typeof getServerSideProp
 
 export default EditJob
 
+/* @ts-ignore */
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {params} = context
     if (!params?.uid) return

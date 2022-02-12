@@ -39,8 +39,8 @@ export const JobsFilter = (props: JobsFilterProps) => {
                 <InputGroup>
                     <InputLeftElement
                         pointerEvents='none'
-                        children={<SearchIcon color='gray.300'/>}
-                    />
+                    ><SearchIcon color='gray.300'/></InputLeftElement>
+
                     <Input
                         type='text'
                         placeholder='Nazwa ogłoszenia'

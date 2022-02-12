@@ -16,7 +16,7 @@ import {useForm} from "react-hook-form";
 import {useUserManager} from "../../hooks/useUserManager";
 import {db} from "../../firebase/clientApp";
 import {showToaster} from "../../utils/toaster";
-import {Select} from "chakra-react-select";
+import {MultiValue, Select} from "chakra-react-select";
 import {useRouter} from "next/router";
 import RichTextEditor from "../../components/RichTextEditor/RIchTextEditor";
 import {experienceLevels} from "../../data/experienceLevels";
@@ -44,14 +44,14 @@ const AddNewJobPage = () => {
     const {currentUser} = useUserManager();
     const {register, handleSubmit, reset, setValue} = useForm<JobFormData>();
 
-    const handleTagsChange = data => {
+    const handleTagsChange = (data: MultiValue<{ label: string; value: string; }>) => {
         const tags = data.map(tag => {
             return tag.value
         })
         setValue("tags", tags)
     };
 
-    const handleContentChange = data => {
+    const handleContentChange = (data: string) => {
         setValue("content", data)
     }
 
@@ -145,7 +145,7 @@ const AddNewJobPage = () => {
                                 <FormLabel>Kategoria</FormLabel>
                                 <ChakraSelect {...register('category')}>
                                     {jobCategories.map(item => (
-                                        <option value={item.value}>{item.value}</option>
+                                        <option key={item.value} value={item.value}>{item.value}</option>
                                     ))}
                                 </ChakraSelect>
                             </FormControl>
@@ -153,7 +153,7 @@ const AddNewJobPage = () => {
                                 <FormLabel>Wymagane doświadczenie</FormLabel>
                                 <ChakraSelect {...register('experienceLevel')}>
                                     {experienceLevels.map(item => (
-                                        <option value={item.value}>{item.label}</option>
+                                        <option key={item.value} value={item.value}>{item.label}</option>
                                     ))}
                                 </ChakraSelect>
                             </FormControl>
