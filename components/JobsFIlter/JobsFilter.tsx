@@ -1,7 +1,7 @@
 import {SearchIcon} from "@chakra-ui/icons"
 import {FormControl, Input, InputGroup, InputLeftElement, Stack, useBreakpointValue} from "@chakra-ui/react"
 import React from "react"
-import {Select, Size} from "chakra-react-select";
+import {MultiValue, Select, Size} from "chakra-react-select";
 import _ from 'lodash';
 import {experienceLevels} from "../../data/experienceLevels";
 import {technologies} from "../../data/categories";
@@ -12,15 +12,18 @@ interface JobsFilterProps {
     onExperienceLevelFilterChanged: any
 }
 
+interface SelectedItem extends MultiValue<{ label: string; value: string; }> {
+}
+
 export const JobsFilter = (props: JobsFilterProps) => {
 
-    const handleTagsChange = data => {
+    const handleTagsChange = (data: SelectedItem) => {
         const tags = data.map(tag => {
             return tag.value
         })
         props.onTagsFilterChanged(tags)
     };
-    const handleExperienceLevelChange = data => {
+    const handleExperienceLevelChange = (data: SelectedItem) => {
         const values = data.map(item => {
             return item.value
         })
